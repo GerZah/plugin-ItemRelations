@@ -44,11 +44,12 @@ class Table_ItemRelationsRelation extends Omeka_Db_Table
      *
      * @param integer $subjectItemId
      * @param boolean $onlyExistingObjectItems
+     * @param integer|array $propertyId
      * @return array
      */
-    public function findBySubjectItemId($subjectItemId, $onlyExistingObjectItems = true)
+    public function findBySubjectItemId($subjectItemId, $onlyExistingObjectItems = true, $propertyId = null)
     {
-        $db = $this->getDb();
+        $db = $this->_db;
         $select = $this->getSelect()
             ->where('item_relations_relations.subject_item_id = ?', (int) $subjectItemId);
         if ($onlyExistingObjectItems) {
@@ -58,6 +59,17 @@ class Table_ItemRelationsRelation extends Omeka_Db_Table
                 array()
             );
         }
+        if ($propertyId) {
+            if (is_array($propertyId)) {
+                $select
+                    ->where('item_relations_relations.property_id IN (?)', array_map('intval', $propertyId));
+            }
+            // Single property.
+            else{
+                $select
+                    ->where('item_relations_relations.property_id = ?', (int) $propertyId);
+            }
+        }
         return $this->fetchObjects($select);
     }
 
@@ -66,11 +78,12 @@ class Table_ItemRelationsRelation extends Omeka_Db_Table
      *
      * @param integer $objectItemId
      * @param boolean $onlyExistingSubjectItems
+     * @param integer|array $propertyId
      * @return array
      */
-    public function findByObjectItemId($objectItemId, $onlyExistingSubjectItems = true)
+    public function findByObjectItemId($objectItemId, $onlyExistingSubjectItems = true, $propertyId = null)
     {
-        $db = $this->getDb();
+        $db = $this->_db;
         $select = $this->getSelect()
             ->where('item_relations_relations.object_item_id = ?', (int) $objectItemId);
         if ($onlyExistingSubjectItems) {
@@ -79,6 +92,17 @@ class Table_ItemRelationsRelation extends Omeka_Db_Table
                 'items.id = item_relations_relations.subject_item_id',
                 array()
             );
+        }
+        if ($propertyId) {
+            if (is_array($propertyId)) {
+                $select
+                    ->where('item_relations_relations.property_id IN (?)', array_map('intval', $propertyId));
+            }
+            // Single property.
+            else{
+                $select
+                    ->where('item_relations_relations.property_id = ?', (int) $propertyId);
+            }
         }
         return $this->fetchObjects($select);
     }
