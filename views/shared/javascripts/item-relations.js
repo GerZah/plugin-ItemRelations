@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         $('#object_title').html('<i>' + itemRelationsSearchAndSelect + '</i>');
         $('#new_relation_property_id').val('');
         $('#relation_comment').val('');
-        $('#new_relation_object_item_type_id').val(-1);
+        $('#new_relation_object_item_type_id').val('');
         $('#new_relation_object_collection_id').val('');
         $('#partial_object_title').val('');
         $('#id_limit').val('');
@@ -40,9 +40,9 @@ jQuery(document).ready(function () {
 
     function updateChoices() {
         if (updateTimer != null) {
-	        clearTimeout(updateTimer);
+            clearTimeout(updateTimer);
         }
-	    updateTimer = setTimeout(updateChoicesCore, 1000);
+        updateTimer = setTimeout(updateChoicesCore, 1000);
     }
 
     function updateChoicesCore() {
