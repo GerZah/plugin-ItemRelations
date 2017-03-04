@@ -188,7 +188,7 @@
             </div>
             <div class="inputs nine columns omega">
                 <?php echo $this->formSelect('new_relation_object_item_type_id',
-                    null, array('multiple' => false), array()); ?>
+                    '', array('multiple' => false), array('' => '')); ?>
             </div>
         </div>
 
@@ -198,7 +198,7 @@
             </div>
             <div class="inputs nine columns omega">
                 <?php echo $this->formSelect('new_relation_object_collection_id',
-                    null, array('multiple' => false), array()); ?>
+                    '', array('multiple' => false), array('' => '')); ?>
             </div>
         </div>
 
